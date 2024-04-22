@@ -1,5 +1,8 @@
 const shuffleBtn = document.getElementById('shuffle-btn')
 const drawBtn = document.getElementById('draw-btn')
+const computerCard = document.getElementById('computer-card')
+const myCard = document.getElementById('me-card')
+
 
 let deckId
 
@@ -12,10 +15,15 @@ async function newDeck() {
 }
 
 async function newCards(deckId) {
-    newDeck()
     const res = await fetch(`https://www.deckofcardsapi.com/api/deck/${deckId}/draw/?count=2`)
     const data = await res.json()
     console.log(data)
+    computerCard.innerHTML = `
+        <img src=${data.cards[0].image} />
+    `
+    myCard.innerHTML = `
+        <img src=${data.cards[1].image} />
+    `
 }
 
 shuffleBtn.addEventListener('click', () => {

@@ -78,9 +78,14 @@ main {
 
 .card-container {
     height: 30vh;
-    aspect-ratio: 3/4;
+    aspect-ratio: 226/314;
     border-radius: 10px;
     border: solid 2px black;
+}
+
+.card-container img {
+    width: 100%;
+    z-index: 1;
 }
 
 #draw-btn {
