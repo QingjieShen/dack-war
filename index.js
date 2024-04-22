@@ -24,6 +24,18 @@ async function newCards(deckId) {
     myCard.innerHTML = `
         <img src=${data.cards[1].image} />
     `
+    console.log(compareCards(data.cards[0].code.slice(0, -1), data.cards[1].code.slice(0, -1)))
+}
+
+function compareCards(cardA, cardB) {
+    const cards = ["2", "3", "4", "5", "6", "7", "8", "9", "0", "J", "Q", "K", "A"]
+    if (cards.indexOf(cardA) > cards.indexOf(cardB)) {
+        return 1
+    } else if (cards.indexOf(cardA) === cards.indexOf(cardB)) {
+        return 0
+    } else {
+        return -1
+    }
 }
 
 shuffleBtn.addEventListener('click', () => {
