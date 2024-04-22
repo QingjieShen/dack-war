@@ -15,11 +15,72 @@ body {
 main {
     height: 100vh;
     width: 100%;
-    background: url('./img/table.png');
+    background-image: url('./img/table.png');
+    background-size: cover;
+}
+
+.operation {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    display: flex;
+}
+.operation h2 {
+    width: 100%;
+    font-size: 1.2rem;
+    text-align: center;
+    color: rgb(235, 235, 235);
+    font-weight: 400;
+    margin-top: 0.2rem;
+}
+
+#shuffle-btn {
+    position: absolute;
+    top: 0;
+    background-color: yellow;
+    border: none;
+    font-size: large;
+    font-weight: 400;
+    padding: 5px;
 }
 
 .desk {
     height: calc(100% - var(--draw-btn-height));
+    color: rgb(235, 235, 235);
+}
+
+.desk h1 {
+    width: 100%;
+    text-align: center;
+    padding-top: 3rem;
+    font-weight: 500;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.wrapper h2 {
+    margin: 1rem;
+}
+
+#computer {
+    margin: 1.5rem auto 2rem auto;
+}
+
+#me {
+    margin-top: 2rem;
+}
+
+.card-container {
+    height: 30vh;
+    aspect-ratio: 3/4;
+    border-radius: 10px;
+    border: solid 2px black;
 }
 
 #draw-btn {
@@ -31,10 +92,4 @@ main {
     font-weight: 600;
 }
 
-#shuffle-btn {
-    background-color: yellow;
-    border: none;
-    font-size: large;
-    font-weight: 400;
-    padding: 5px;
-}
+
