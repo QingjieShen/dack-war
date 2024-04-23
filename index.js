@@ -5,6 +5,7 @@ const myCard = document.getElementById('me-card')
 const remainCards = document.getElementById('remain-cards')
 const computerScoreEle = document.getElementById('computer-score')
 const myScoreEle = document.getElementById('my-score')
+const resultText = document.getElementById('result-text')
 
 
 let deckId
@@ -19,6 +20,9 @@ async function newDeck() {
     console.log(deckId)
     remainCards.textContent = `Remaining Cards: ${data.remaining}`
     drawBtn.disabled = false;
+    computerCard.innerHTML = ``
+    myCard.innerHTML = ``
+    resultText.textContent = 'Click "Draw" to start'
 }
 
 async function newCards(deckId) {
@@ -31,13 +35,6 @@ async function newCards(deckId) {
     myCard.innerHTML = `
         <img src=${data.cards[1].image} />
     `
-    
-    if (data.remaining > 0) {
-        remainCards.textContent = `Remaining Cards: ${data.remaining}`
-    } else {
-        remainCards.textContent = `No cards remain, Please reshuffle.`
-        drawBtn.disabled = true;
-    }
 
     if (compareCards(data.cards[0].code.slice(0, -1), data.cards[1].code.slice(0, -1)) === -1) {
         myScore++
@@ -48,15 +45,32 @@ async function newCards(deckId) {
     computerScoreEle.textContent = `Computer: ${computerScore}`
     myScoreEle.textContent = `Me: ${myScore}`
 
+    if (data.remaining > 0) {
+        remainCards.textContent = `Remaining Cards: ${data.remaining}`
+    } else {
+        remainCards.textContent = `No cards remain, Please reshuffle.`
+        drawBtn.disabled = true;
+        if (myScore > computerScore) {
+            resultText.textContent = 'You win the Game!'
+        } else if (computerScore > myScore) {
+            resultText.textContent = 'The computer win the Game!'
+        } else {
+            resultText.textContent = "It's a tie Game!"
+        }
+    }
+
 }
 
 function compareCards(cardA, cardB) {
     const cards = ["2", "3", "4", "5", "6", "7", "8", "9", "0", "J", "Q", "K", "A"]
     if (cards.indexOf(cardA) > cards.indexOf(cardB)) {
+        resultText.textContent = 'Computer Win!'
         return 1
     } else if (cards.indexOf(cardA) === cards.indexOf(cardB)) {
+        resultText.textContent = "It's a war!"
         return 0
     } else {
+        resultText.textContent = 'You Win!'
         return -1
     }
 }
