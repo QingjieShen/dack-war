@@ -2,9 +2,14 @@ const shuffleBtn = document.getElementById('shuffle-btn')
 const drawBtn = document.getElementById('draw-btn')
 const computerCard = document.getElementById('computer-card')
 const myCard = document.getElementById('me-card')
+const remainCards = document.getElementById('remain-cards')
+const computerScoreEle = document.getElementById('computer-score')
+const myScoreEle = document.getElementById('my-score')
 
 
 let deckId
+let computerScore = 0
+let myScore = 0
 
 async function newDeck() {
     const res = await fetch('https://www.deckofcardsapi.com/api/deck/new/shuffle')
@@ -12,6 +17,7 @@ async function newDeck() {
     deckId = data.deck_id
     console.log(data)
     console.log(deckId)
+    remainCards.textContent = `Remaining Cards: ${data.remaining}`
 }
 
 async function newCards(deckId) {
@@ -24,7 +30,18 @@ async function newCards(deckId) {
     myCard.innerHTML = `
         <img src=${data.cards[1].image} />
     `
+    
+    remainCards.textContent = data.remaining > 0 ? `Remaining Cards: ${data.remaining}` : `No cards remain, Please reshuffle.`
     console.log(compareCards(data.cards[0].code.slice(0, -1), data.cards[1].code.slice(0, -1)))
+    if (compareCards(data.cards[0].code.slice(0, -1), data.cards[1].code.slice(0, -1)) === -1) {
+        myScore++
+    } else if (compareCards(data.cards[0].code.slice(0, -1), data.cards[1].code.slice(0, -1)) === 1) {
+        computerScore++
+    }
+
+    computerScoreEle.textContent = `Computer: ${computerScore}`
+    myScoreEle.textContent = `Me: ${myScore}`
+
 }
 
 function compareCards(cardA, cardB) {
@@ -37,6 +54,7 @@ function compareCards(cardA, cardB) {
         return -1
     }
 }
+
 
 shuffleBtn.addEventListener('click', () => {
     newDeck()
