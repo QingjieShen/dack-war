@@ -18,6 +18,7 @@ async function newDeck() {
     console.log(data)
     console.log(deckId)
     remainCards.textContent = `Remaining Cards: ${data.remaining}`
+    drawBtn.disabled = false;
 }
 
 async function newCards(deckId) {
@@ -31,8 +32,13 @@ async function newCards(deckId) {
         <img src=${data.cards[1].image} />
     `
     
-    remainCards.textContent = data.remaining > 0 ? `Remaining Cards: ${data.remaining}` : `No cards remain, Please reshuffle.`
-    console.log(compareCards(data.cards[0].code.slice(0, -1), data.cards[1].code.slice(0, -1)))
+    if (data.remaining > 0) {
+        remainCards.textContent = `Remaining Cards: ${data.remaining}`
+    } else {
+        remainCards.textContent = `No cards remain, Please reshuffle.`
+        drawBtn.disabled = true;
+    }
+
     if (compareCards(data.cards[0].code.slice(0, -1), data.cards[1].code.slice(0, -1)) === -1) {
         myScore++
     } else if (compareCards(data.cards[0].code.slice(0, -1), data.cards[1].code.slice(0, -1)) === 1) {
